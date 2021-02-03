@@ -11693,6 +11693,31 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const fs = __importStar(__webpack_require__(747));
+function getWorkingDirectory(){
+    var currentWorkSpace = process.env.GITHUB_WORKSPACE
+    core.debug("Current working directory: " + currentWorkSpace)
+
+    // original : {{working dir}}/{{repoName}}/{{repoName}}
+    // new      : {{working dir}}/{{short-repo-name}}
+
+    var repoName = currentWorkSpace.split('\\').pop().split('/').pop();
+    core.debug("repo name: " + repoName);
+
+    var shortenedRepoName = repoName.split('.').pop();
+    core.debug("shortened repo name: " + shortenedRepoName);
+
+    var workDir = currentWorkSpace.substring(0, currentWorkSpace.indexOf(repoName));
+    core.debug("actual working dir: " + workDir);
+
+    var newWorkSpace = workDir + shortenedRepoName;
+    core.debug("New working dir: " + newWorkSpace);
+    core.debug("Workspace setting complete");
+
+    core.setOutput("LOCAL_WORKING_DIR", newWorkSpace);
+
+    return newWorkSpace;
+
+}
 
 function directoryExistsSync(path, required) {
     if (!path) {
@@ -14517,7 +14542,7 @@ const path = __importStar(__webpack_require__(622));
 function getInputs() {
     const result = {};
     // GitHub workspace
-    let githubWorkspacePath = core.getInput("workspace") || process.env["GITHUB_WORKSPACE"];
+    let githubWorkspacePath = process.env["GITHUB_WORKSPACE"];
     if (!githubWorkspacePath) {
         throw new Error('GITHUB_WORKSPACE not defined');
     }
