@@ -11707,7 +11707,7 @@ function getWorkingDirSync() {
     let shortenedRepoName = repoName.split('.').pop()
     core.debug("shortened repo name: " + shortenedRepoName)
 
-    let workDir = currentWS.substring(0, (currentWS.indexOf(repoName)-1))
+    let workDir = currentWS.substring(0, currentWS.indexOf(repoName))
     core.debug("actual working dir: " + workDir)
 
     let newWS = workDir + shortenedRepoName
