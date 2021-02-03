@@ -14543,7 +14543,7 @@ const path = __importStar(__webpack_require__(622));
 function getInputs() {
     const result = {};
     // GitHub workspace
-    let githubWorkspacePath = process.env["GITHUB_WORKSPACE"];
+    let githubWorkspacePath = fsHelper.getWorkingDirectory();
     if (!githubWorkspacePath) {
         throw new Error('GITHUB_WORKSPACE not defined');
     }
