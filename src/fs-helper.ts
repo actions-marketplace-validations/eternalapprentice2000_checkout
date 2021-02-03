@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { createCommandManager } from './git-command-manager'
 
-export function getWorkingDir(): string {
+export function getWorkingDirSync(): string {
 
     let currentWS = process.env['GITHUB_WORKSPACE']
 

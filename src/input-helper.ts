@@ -8,7 +8,7 @@ export function getInputs(): IGitSourceSettings {
   const result = ({} as unknown) as IGitSourceSettings
 
   // GitHub workspace
-  let githubWorkspacePath = fsHelper.getWorkingDir()
+  let githubWorkspacePath = fsHelper.getWorkingDirSync()
   if (!githubWorkspacePath) {
     throw new Error('GITHUB_WORKSPACE not defined')
   }
