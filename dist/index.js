@@ -11696,6 +11696,7 @@ const fs = __importStar(__webpack_require__(747));
 function getWorkingDirSync() {
 
     let currentWS = process.env['GITHUB_WORKSPACE']
+    core.debug("Current working directory: " + currentWS)
 
     // original : {{working dir}}/{{repoName}}/{{repoName}}
     // new      : {{working dir}}/{{short-repo-name}}
@@ -11706,7 +11707,7 @@ function getWorkingDirSync() {
     let shortenedRepoName = repoName.split('.').pop()
     core.debug("shortened repo name: " + shortenedRepoName)
 
-    let workDir = currentWS.substring(currentWS.indexOf(repoName))
+    let workDir = currentWS.substring(0, (currentWS.indexOf(repoName)-1))
     core.debug("actual working dir: " + workDir)
 
     let newWS = workDir + shortenedRepoName
