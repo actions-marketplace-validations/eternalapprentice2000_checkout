@@ -11691,6 +11691,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
 const fs = __importStar(__webpack_require__(747));
 function getWorkingDirSync() {
 
@@ -11700,9 +11701,17 @@ function getWorkingDirSync() {
     // new      : {{working dir}}/{{short-repo-name}}
 
     let repoName = currentWS.split('\\').pop().split('/').pop()
+    core.log("repo name: " + repoName)
+
     let shortenedRepoName = repoName.split('.').pop()
+    core.log("shortened repo name: " + shortenedRepoName)
+
     let workDir = currentWS.substring(currentWS.indexOf(repoName))
+    core.log("actual working dir: " + workDir)
+
     let newWS = workDir + shortenedRepoName
+
+    core.log("New working dir: " + newWS)
 
     return newWS  
 }
