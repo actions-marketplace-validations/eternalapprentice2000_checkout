@@ -11718,6 +11718,7 @@ function getWorkingDirectory(){
     return newWorkSpace;
 
 }
+exports.getWorkingDirectory = getWorkingDirectory;
 
 function directoryExistsSync(path, required) {
     if (!path) {
