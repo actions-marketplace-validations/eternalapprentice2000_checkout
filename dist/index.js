@@ -11693,36 +11693,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const fs = __importStar(__webpack_require__(747));
-function getWorkingDirSync() {
-
-    let currentWS = process.env['GITHUB_WORKSPACE']
-    core.debug("Current working directory: " + currentWS)
-
-    // original : {{working dir}}/{{repoName}}/{{repoName}}
-    // new      : {{working dir}}/{{short-repo-name}}
-
-    let repoName = currentWS.split('\\').pop().split('/').pop()
-    core.debug("repo name: " + repoName)
-
-    let shortenedRepoName = repoName.split('.').pop()
-    core.debug("shortened repo name: " + shortenedRepoName)
-
-    let workDir = currentWS.substring(0, currentWS.indexOf(repoName))
-    core.debug("actual working dir: " + workDir)
-
-    let newWS = workDir + shortenedRepoName
-
-    core.debug("New working dir: " + newWS)
-
-    // need to create it
-    if (!fs.existsSync(newWS)){
-        core.debug("Directory: " + newWS + " does not exist.  Creating it...")
-        fs.mkdirSync(newWS);
-    }
-
-    return newWS  
-}
-exports.getWorkingDirSync = getWorkingDirSync;
 
 function directoryExistsSync(path, required) {
     if (!path) {
@@ -14547,7 +14517,7 @@ const path = __importStar(__webpack_require__(622));
 function getInputs() {
     const result = {};
     // GitHub workspace
-    let githubWorkspacePath = fsHelper.getWorkingDirSync();
+    let githubWorkspacePath = core.getInput("workspace") || process.env["GITHUB_WORKSPACE"];
     if (!githubWorkspacePath) {
         throw new Error('GITHUB_WORKSPACE not defined');
     }
