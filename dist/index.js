@@ -11714,6 +11714,12 @@ function getWorkingDirSync() {
 
     core.debug("New working dir: " + newWS)
 
+    // need to create it
+    if (!fs.existsSync(newWS)){
+        core.debug("Directory: " + newWS + " does not exist.  Creating it...")
+        fs.mkdirSync(newWS);
+    }
+
     return newWS  
 }
 exports.getWorkingDirSync = getWorkingDirSync;
