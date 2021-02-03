@@ -11692,6 +11692,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(__webpack_require__(747));
+function getWorkingDirSync() {
+
+    let currentWS = process.env['GITHUB_WORKSPACE']
+
+    // original : {{working dir}}/{{repoName}}/{{repoName}}
+    // new      : {{working dir}}/{{short-repo-name}}
+
+    let repoName = currentWS.split('\\').pop().split('/').pop()
+    let shortenedRepoName = repoName.split('.').pop()
+    let workDir = currentWS.substring(currentWS.indexOf(repoName))
+    let newWS = workDir + shortenedRepoName
+
+    return newWS  
+}
+exports.getWorkingDirSync = getWorkingDirSync;
+
 function directoryExistsSync(path, required) {
     if (!path) {
         throw new Error("Arg 'path' must not be empty");
@@ -14515,7 +14531,7 @@ const path = __importStar(__webpack_require__(622));
 function getInputs() {
     const result = {};
     // GitHub workspace
-    let githubWorkspacePath = process.env['GITHUB_WORKSPACE']
+    let githubWorkspacePath = fsHelper.getWorkingDirSync();
     if (!githubWorkspacePath) {
         throw new Error('GITHUB_WORKSPACE not defined');
     }
