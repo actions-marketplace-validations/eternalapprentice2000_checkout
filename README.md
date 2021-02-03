@@ -2,7 +2,10 @@
   <a href="https://github.com/actions/checkout"><img alt="GitHub Actions status" src="https://github.com/actions/checkout/workflows/test-local/badge.svg"></a>
 </p>
 
-# Checkout V2
+# Checkout-Short-WorkDir V2.3.4-short-workdir
+
+# This code was forked from the main actions/checkout repo and modified to suit the needs of myself and my company.
+## I do not recommend you use this unless you feel the changes will also benefit you.
 
 This action checks-out your repository under `$GITHUB_WORKSPACE`, so your workflow can access it.
 
