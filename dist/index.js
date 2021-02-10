@@ -11693,6 +11693,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const fs = __importStar(__webpack_require__(747));
+function createDirectorySync(path){
+    if (!fs.existsSync(path)){
+        fs.mkdirSync(path);
+    }
+}
+exports.createDirectorySync = createDirectorySync;
+
 function getWorkingDirectory(){
     var currentWorkSpace = process.env.GITHUB_WORKSPACE
     core.debug("Current working directory: " + currentWorkSpace)
@@ -14549,6 +14556,7 @@ function getInputs() {
     }
     githubWorkspacePath = path.resolve(githubWorkspacePath);
     core.debug(`GITHUB_WORKSPACE = '${githubWorkspacePath}'`);
+    fsHelper.createDirectorySync(githubWorkspacePath);
     fsHelper.directoryExistsSync(githubWorkspacePath, true);
     // Qualified repository
     const qualifiedRepository = core.getInput('repository') ||
